@@ -19,7 +19,7 @@ bower install
 Configure variables of application in file:
 
 ```
-resources/application.properties
+src/main/resources/application.properties
 ```
 These variables are:
 ```
