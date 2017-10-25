@@ -1,0 +1,50 @@
+.app-s {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.c-pointer {
+    cursor: pointer;
+}
+
+.p-t-25 {
+    padding-top: 25px;
+}
+
+.p-b-25 {
+    padding-bottom: 25px;
+}
+
+.btn-lnk {
+    color: #333;
+    font-size: 20px;
+}
+
+.btn-lnk-indexer {
+    padding-right: 30px;
+    border-right: 1px solid #a4acaf;
+}
+
+.btn-lnk-searcher {
+    padding-left: 25px;
+}
+
+.btn-lnk.active {
+    color: #3d9ece;
+    text-decoration: underline;
+}
+
+.indexerForm input, .searcherForm input {
+    height: 55px;
+}
+
+.buttons {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.results {
+    margin-top: 50px;
+}
