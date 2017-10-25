@@ -20,7 +20,7 @@ public class Crawler {
 
     public Page execute() {
         try {
-            Document document = Jsoup.connect(this.url).get();
+            Document document = Jsoup.connect(this.url).timeout(60 * 1000).get();
 
             String location = document.location();
 
@@ -30,13 +30,16 @@ public class Crawler {
             Elements outlinkElements = document.select("a[href]");
             Iterator<Element> elementIterator = outlinkElements.iterator();
             ArrayList<String> outlinks = new ArrayList<>();
-            while(elementIterator.hasNext()) {
-                String outlinkUrl = Url.removeLastSlash(elementIterator.next().attr("href"));
-                outlinks.add(outlinkUrl);
+            while (elementIterator.hasNext()) {
+                String href = elementIterator.next().attr("href");
+                if(Url.isUrl(href)) {
+                    String outlinkUrl = Url.removeLastSlash(href);
+                    outlinks.add(outlinkUrl);
+                }
             }
             return new Page(this.url, title, content, outlinks);
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
         return null;
