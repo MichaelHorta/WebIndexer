@@ -16,7 +16,7 @@ bower install
 
 ### Configuration
 
-Configure variable of application in file:
+Configure variables of application in file:
 
 ```
 resources/application.properties
