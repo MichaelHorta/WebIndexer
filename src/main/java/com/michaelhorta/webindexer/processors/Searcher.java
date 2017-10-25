@@ -111,6 +111,10 @@ public class Searcher {
 //        Query query = new QueryParser("title", analyzer).parse("OnServi - Presupuestos gratuitos de profesionales");
         Query query = new QueryParser(key, analyzer).parse(value);
 
+        if (!DirectoryReader.indexExists(directory)) {
+            return null;
+        }
+
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher searcher = new IndexSearcher(reader);
         TopDocs docs = searcher.search(query, 1);
