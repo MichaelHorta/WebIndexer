@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 public class Searcher {
     private StandardAnalyzer analyzer;
+    private String indexesDirectoryPath;
     private Directory indexesDirectory;
     private IndexWriterConfig indexesIndexWriterConfig;
     private IndexWriter indexesIndexWriter;
@@ -30,6 +31,7 @@ public class Searcher {
 
     public Searcher(String indexesDirectoryPath, String directoryPath, String word) throws IOException {
         this.analyzer = new StandardAnalyzer();
+        this.indexesDirectoryPath = indexesDirectoryPath;
         this.indexesDirectory = new SimpleFSDirectory(new File(indexesDirectoryPath).toPath());
         this.indexesIndexWriterConfig = new IndexWriterConfig(analyzer);
         this.indexesIndexWriter = new IndexWriter(indexesDirectory, indexesIndexWriterConfig);
@@ -56,17 +58,23 @@ public class Searcher {
         return new SearcherResponse(searchResultPages, word);
     }
 
-    private ArrayList<PageIndex> getIndexes() throws IOException {
+    private ArrayList<PageIndex> getIndexes() throws IOException, ParseException {
         ArrayList<PageIndex> indexes = new ArrayList<>();
 
-        IndexReader reader = DirectoryReader.open(indexesDirectory);
-        for (int i = 0; i < reader.maxDoc(); i++) {
-            Document doc = reader.document(i);
-            IndexableField code = doc.getField("code");
-            IndexableField title = doc.getField("title");
-            IndexableField url = doc.getField("url");
-            IndexableField outlinks = doc.getField("outlinks");
-            indexes.add(new PageIndex(code.stringValue(), title.stringValue(), url.stringValue()));
+        if (DirectoryReader.indexExists(indexesDirectory)) {
+            IndexReader reader = DirectoryReader.open(indexesDirectory);
+            for (int i = 0; i < reader.maxDoc(); i++) {
+                Document doc = reader.document(i);
+
+                IndexableField code = doc.getField("code");
+                IndexableField title = doc.getField("title");
+                IndexableField url = doc.getField("url");
+                IndexableField outlinks = doc.getField("outlinks");
+                if (existsDocument(indexesDirectoryPath, "code", code.stringValue())) {
+                    indexes.add(new PageIndex(code.stringValue(), title.stringValue(), url.stringValue()));
+                }
+            }
+            reader.close();
         }
 
         return indexes;
