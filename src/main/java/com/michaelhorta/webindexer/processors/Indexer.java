@@ -47,6 +47,9 @@ public class Indexer {
         this.indexesIndexWriter = new IndexWriter(indexesDirectory, indexesIndexWriterConfig);
         documentsMap = new HashMap<>();
 
+        this.indexesDirectoryPath = indexesDirectoryPath;
+        this.directoryPath = directoryPath;
+
         this.page = page;
     }
 
@@ -56,13 +59,15 @@ public class Indexer {
     }
 
     public void execute() throws IOException, ParseException {
-        String[] words = page.getContent().split(" ");
-        for (String word : words) {
-            registerDocumentInMap(word);
-//            addDocument(word);
+        Searcher searcher = new Searcher();
+        if(!searcher.existsDocument(indexesDirectoryPath, "code", String.valueOf(Math.abs(page.getUrl().hashCode())))) {
+            String[] words = page.getContent().split(" ");
+            for (String word : words) {
+                registerDocumentInMap(word);
+            }
+            addDocuments();
+            addIndexDocument();
         }
-        addDocuments();
-        addIndexDocument();
         indexWriter.close();
         indexesIndexWriter.close();
     }
@@ -105,8 +110,9 @@ public class Indexer {
 
     public void deleteIndex(String url) throws IOException, ParseException {
         int code = Math.abs(url.hashCode());
-        Searcher searcher = new Searcher();
-        Document document = searcher.searchDocumentByKeyValue(indexesDirectoryPath, "code", String.valueOf(code));
+
+//        Searcher searcher = new Searcher();
+//        Document document = searcher.searchDocumentByKeyValue(indexesDirectoryPath, "code", String.valueOf(code));
 
 //        System.out.println(document.getField("code"));
 //        System.out.println(document.getField("title"));
@@ -129,10 +135,10 @@ public class Indexer {
         String[] entries = file.list();
         for (String s : entries) {
             File currentFile = new File(file.getPath(), s);
-            boolean a = currentFile.delete();
+            currentFile.delete();
 //            System.out.println(a);
         }
-        boolean b = file.delete();
+        file.delete();
 //        System.out.println(b);
     }
 }
