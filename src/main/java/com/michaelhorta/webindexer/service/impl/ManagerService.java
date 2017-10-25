@@ -9,7 +9,6 @@ import com.michaelhorta.webindexer.processors.Indexer;
 import com.michaelhorta.webindexer.processors.Searcher;
 import com.michaelhorta.webindexer.service.IManagerService;
 import com.michaelhorta.webindexer.utils.Url;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
