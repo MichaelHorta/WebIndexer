@@ -22,6 +22,9 @@ function WebIndexerController($scope, WebIndexerService) {
     $scope.toIndexerView = function () {
         $scope.indexerActive = true;
         $scope.searcherActive = false;
+        $scope.url = '';
+        $scope.finishIndex = false;
+        $scope.finishClear = false;
     };
 
     $scope.toIndexProcess = function (isValid) {
@@ -34,6 +37,7 @@ function WebIndexerController($scope, WebIndexerService) {
         $scope.indexing = true;
         $scope.btnIndexText = 'Indexing...';
         $scope.finishIndex = false;
+        $scope.finishClear = false;
         var promise = WebIndexerService.indexUrl($scope.url);
         promise.then(function (response) {
             console.log(response);
@@ -53,10 +57,10 @@ function WebIndexerController($scope, WebIndexerService) {
         $scope.clearing = true;
         $scope.btnClearText = 'Clearing...';
         $scope.finishClear = false;
+        $scope.finishIndex = false;
         var promise = WebIndexerService.clearUrl($scope.url);
         promise.then(function (response) {
             console.log(response);
-            $scope.url = '';
             $scope.clearing = false;
             $scope.btnClearText = 'Clear';
             $scope.finishClear = true;

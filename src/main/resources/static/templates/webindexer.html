@@ -19,8 +19,9 @@
                     </div>
                 </form>
 
-                <div class="results" ng-if="finishIndex">
-                    <p>Indexed <strong>{{pagesCount}}</strong> new pages and <strong>{{wordsCount}}</strong> words.</p>
+                <div class="results">
+                    <p ng-if="finishIndex">Indexed <strong>{{pagesCount}}</strong> new pages and <strong>{{wordsCount}}</strong> words.</p>
+                    <p ng-if="finishClear">Cleared URL <strong>{{url}}</strong>.</p>
                 </div>
             </div>
 
