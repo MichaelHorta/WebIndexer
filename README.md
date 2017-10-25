@@ -25,5 +25,5 @@ These variables are:
 ```
 1- depth: Maxiumum depth for crawling process
 2- directoryPath: Base direcotry path where are stored all indexes
-1- indexesDirectoryPath: Directory path where are stored doduments with information of stored indexes
+3- indexesDirectoryPath: Directory path where are stored doduments with information of stored indexes
 ```
