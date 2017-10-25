@@ -126,7 +126,13 @@ public class Indexer {
         indexWriter = new IndexWriter(directory, indexWriterConfig);
         indexWriter.deleteAll();
         indexWriter.close();
+        String[] entries = file.list();
+        for (String s : entries) {
+            File currentFile = new File(file.getPath(), s);
+            boolean a = currentFile.delete();
+//            System.out.println(a);
+        }
         boolean b = file.delete();
-        System.out.println(b);
+//        System.out.println(b);
     }
 }
