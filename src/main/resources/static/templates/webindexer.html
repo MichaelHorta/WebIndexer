@@ -1,0 +1,53 @@
+<div class="app-s flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-md-10 text-center p-t-25 p-b-25">
+                <a href="#" class="c-pointer btn-lnk btn-lnk-indexer" ng-class="{'active': indexerActive}" ng-click="toIndexerView()">Index</a>
+                <a href="#" class="c-pointer btn-lnk btn-lnk-searcher" ng-class="{'active': searcherActive}" ng-click="toSearcherView()">Search</a>
+            </div>
+
+            <div class="col-md-10" ng-show="indexerActive">
+                <form class="indexerForm" name="indexerForm" ng-submit="toIndexProcess(indexerForm.$valid)" enctype="multipart/form-data" role="form" novalidate>
+
+                    <div class="input-group mb-3">
+                        <input type="url" class="form-control" placeholder="Put an url here" ng-model="url" ng-required="true" ng-disabled="indexing">
+                    </div>
+                    <div class="buttons">
+                            <button type="submit" class="btn btn-success c-pointer" ng-disabled="indexerForm.$invalid || indexing || clearing">{{btnIndexText}}</button>
+                            <button type="button" class="btn btn-danger c-pointer" ng-click="clearUrl()" ng-disabled="indexerForm.$invalid || indexing || clearing">{{btnClearText}}</button>
+                    </div>
+                </form>
+
+                <div class="results" ng-if="finishIndex">
+                    <p>Indexed <strong>{{pagesCount}}</strong> new pages and <strong>{{wordsCount}}</strong> words.</p>
+                </div>
+            </div>
+
+            <div class="col-md-10" ng-show="searcherActive">
+                <form class="searcherForm" name="searcherForm" ng-submit="toSerchProcess(searcherForm.$valid)" enctype="multipart/form-data" role="form" novalidate>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control mr-2" placeholder="Put a word here" ng-model="word" ng-required="true" ng-disabled="searching">
+                        <button type="submit" class="btn btn-success" ng-disabled="searcherForm.$invalid || searching">{{btnSearchText}}</button>
+                    </div>
+
+
+                </form>
+
+                <div class="results" ng-if="finishSearch">
+                    <p>Found <strong>{{pages.length}}</strong> results.</p>
+                    <div class="page" ng-repeat="page in pages">
+                        <a href="{{page.pageIndex.url}}" target="_blank">{{page.pageIndex.title}}</a>
+                        <p>Ocurrences: <strong>{{page.occurrences}}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        background: #f7f7f7;
+    }
+</style>
