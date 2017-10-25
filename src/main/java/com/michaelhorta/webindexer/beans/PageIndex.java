@@ -1,21 +1,21 @@
 package com.michaelhorta.webindexer.beans;
 
 public class PageIndex {
-    private int code;
+    private String code;
     private String title;
     private String url;
 
-    public PageIndex(int code, String title, String url) {
+    public PageIndex(String code, String title, String url) {
         this.code = code;
         this.title = title;
         this.url = url;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
