@@ -81,6 +81,7 @@ public class ManagerService implements IManagerService {
     }
 
     private boolean isIndexedOutlink(String url) throws IOException, ParseException {
+        url = Url.removeLastSlash(url);
         Searcher searcher = new Searcher();
         return searcher.existsDocument(webIndexerConfig.getIndexesDirectoryPath(), "code", String.valueOf(Math.abs(url.hashCode())));
     }
@@ -99,6 +100,7 @@ public class ManagerService implements IManagerService {
     }
 
     public boolean executeClearer(String url) throws IOException, ParseException {
+        url = Url.removeLastSlash(url);
         Indexer indexer = new Indexer(webIndexerConfig.getIndexesDirectoryPath(), webIndexerConfig.getDirectoryPath() + "/" + Math.abs(url.hashCode()));
         indexer.deleteIndex(url);
         return true;
