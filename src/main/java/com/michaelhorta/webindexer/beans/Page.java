@@ -1,5 +1,6 @@
 package com.michaelhorta.webindexer.beans;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Page {
@@ -45,5 +46,16 @@ public class Page {
 
     public void setOutlinks(List outlinks) {
         this.outlinks = outlinks;
+    }
+
+    public String outlinksToString() {
+        String s = "";
+        Iterator iterator = outlinks.iterator();
+        while (iterator.hasNext()) {
+            s += (iterator.next() + "-");
+        }
+
+        return s;
+
     }
 }
